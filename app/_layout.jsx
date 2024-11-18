@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import CreatePostScreen from './screens/CreatPost/CreatePost';
 import ProfileScreen from './screens/Profile/Profile';
 import SearchScreen from './screens/Search/Search';
+import ForgotPasswordScreen from './screens/ForgotPassword/ForgotPassword.jsx';
 
 const Stack = createNativeStackNavigator();
 const _layout = () => {
@@ -16,6 +17,7 @@ const _layout = () => {
     <Stack.Screen name="CreatePostScreen" component={CreatePostScreen} options={{ headerShown: false }} />
     <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} />
     <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} options={{ headerShown: false }} />
   </Stack.Navigator>
     <Footer />
   </>

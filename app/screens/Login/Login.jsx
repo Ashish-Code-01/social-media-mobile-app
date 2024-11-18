@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 
-const Login = () => {
+export default Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -14,7 +14,6 @@ const Login = () => {
     <View style={styles.container}>
       <View style={styles.form}>
         <Text style={styles.text}>Login</Text>
-
         <TextInput
           style={styles.input}
           placeholder="Username"
@@ -22,7 +21,6 @@ const Login = () => {
           value={username}
           onChangeText={(text) => setUsername(text)}
         />
-
         <TextInput
           style={styles.input}
           placeholder="Password"
@@ -34,12 +32,20 @@ const Login = () => {
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
+        <View style={styles.linkContainer}>
+          <TouchableOpacity onPress={() => navigation.navigate('ForgotPasswordScreen')}>
+            <Text style={styles.link}>Forgot Password?</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+            <Text style={styles.link}>Don't have an account? Register</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
 };
 
-export default Login;
+
 
 const styles = StyleSheet.create({
   container: {
@@ -61,7 +67,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: 'white',
+    color: 'black',
     marginBottom: 20,
   },
   input: {
@@ -73,6 +79,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     fontSize: 16,
     fontWeight: 'bold',
+    color: "black",
   },
   button: {
     height: 50,
@@ -86,11 +93,21 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
     shadowRadius: 5,
-    elevation: 5, 
+    elevation: 5,
   },
   buttonText: {
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  linkContainer: {
+    marginTop: 15,
+  },
+  link: {
+    color: 'black',
+    fontSize: 16,
+    marginTop: 10,
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
   },
 });
