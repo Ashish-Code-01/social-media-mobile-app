@@ -1,13 +1,17 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from 'react';
 
 export default Login = ({ navigation }) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    console.log('Username:', username);
-    console.log('Password:', password);
+    if (!email || !password) {
+      Alert.alert('Error', 'Please fill in both fields.');
+    } else {
+      console.log('Email:', email);
+      console.log('Password:', password);
+    }
   };
 
   return (
@@ -16,14 +20,15 @@ export default Login = ({ navigation }) => {
         <Text style={styles.text}>Login</Text>
         <TextInput
           style={styles.input}
-          placeholder="Username"
+          placeholder="Enter your email"
+          keyboardType="email-address"
           placeholderTextColor="black"
-          value={username}
-          onChangeText={(text) => setUsername(text)}
+          value={email}
+          onChangeText={(text) => setEmail(text)}
         />
         <TextInput
           style={styles.input}
-          placeholder="Password"
+          placeholder="Enter your Password"
           placeholderTextColor="black"
           secureTextEntry
           value={password}
@@ -44,8 +49,6 @@ export default Login = ({ navigation }) => {
     </View>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -72,18 +75,17 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 50,
-    width: '100%',
     backgroundColor: 'white',
     borderRadius: 25,
     paddingHorizontal: 30,
     marginBottom: 30,
     fontSize: 16,
     fontWeight: 'bold',
-    color: "black",
+    color: 'black',
   },
   button: {
     height: 50,
-    width: '70%',
+    width: '18%',
     backgroundColor: 'black',
     borderRadius: 25,
     justifyContent: 'center',
@@ -111,3 +113,4 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
 });
+
