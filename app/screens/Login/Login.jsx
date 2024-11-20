@@ -1,7 +1,10 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from 'react';
+import { useDispatch } from "react-redux"
+import { LoginUser } from "../../../reducer/actions/actions"
 
 export default Login = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -9,8 +12,8 @@ export default Login = ({ navigation }) => {
     if (!email || !password) {
       Alert.alert('Error', 'Please fill in both fields.');
     } else {
-      console.log('Email:', email);
-      console.log('Password:', password);
+      dispatch(LoginUser(email, password))
+      console.log('login')
     }
   };
 
