@@ -1,26 +1,42 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
-import React, { useState } from 'react';
-import { useDispatch } from "react-redux"
-import { LoginUser } from "../../../reducer/actions/actions"
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { LoginUser } from "../../../reducer/actions/actions"; // Ensure the correct path to your action
 
 export default Login = ({ navigation }) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const { Authenticated, isLoading, error } = useSelector(state => state.auth); // Assuming `auth` is the correct state slice
+
   const handleLogin = () => {
     if (!email || !password) {
       Alert.alert('Error', 'Please fill in both fields.');
     } else {
-      dispatch(LoginUser(email, password))
-      console.log('login')
+      dispatch(LoginUser(email, password)); // Ensure LoginUser action is correctly defined
+      console.log("Login attempt initiated.");
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      // Ensure the error object has a message property
+      Alert.alert('Error', error.message || 'An unexpected error occurred.');
+      dispatch({ type: "CLEAR_ERROR" }); // Ensure CLEAR_ERROR is a valid action
+    }
+
+    if (Authenticated) {
+      navigation.navigate('HomeScreen'); // Navigate to HomeScreen on successful login
+    }
+
+  }, [error, dispatch, Authenticated, navigation]);
 
   return (
     <View style={styles.container}>
       <View style={styles.form}>
         <Text style={styles.text}>Login</Text>
+
         <TextInput
           style={styles.input}
           placeholder="Enter your email"
@@ -29,6 +45,7 @@ export default Login = ({ navigation }) => {
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
+
         <TextInput
           style={styles.input}
           placeholder="Enter your Password"
@@ -37,9 +54,12 @@ export default Login = ({ navigation }) => {
           value={password}
           onChangeText={(text) => setPassword(text)}
         />
+
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
+
+
         <View style={styles.linkContainer}>
           <TouchableOpacity onPress={() => navigation.navigate('ForgotPasswordScreen')}>
             <Text style={styles.link}>Forgot Password?</Text>
@@ -81,14 +101,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 25,
     paddingHorizontal: 30,
-    marginBottom: 30,
+    marginBottom: 20,
     fontSize: 16,
     fontWeight: 'bold',
     color: 'black',
+    width: "70%",
   },
   button: {
     height: 50,
-    width: '18%',
     backgroundColor: 'black',
     borderRadius: 25,
     justifyContent: 'center',
@@ -99,6 +119,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 5,
     elevation: 5,
+    width: "50%",
   },
   buttonText: {
     color: 'white',
@@ -116,4 +137,3 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
 });
-
