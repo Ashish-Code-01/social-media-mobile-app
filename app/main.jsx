@@ -20,7 +20,7 @@ const App = () => {
     }, [dispatch])
 
 
-    const state = useSelector(state => state.auth);
+    const state = useSelector(state => state.UserAuthentication);
     return (
         <>
             <Stack.Navigator initialRouteName={"LoginScreen"}>
