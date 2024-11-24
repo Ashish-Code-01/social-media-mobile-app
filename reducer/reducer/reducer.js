@@ -18,7 +18,7 @@ export const GET_MY_PROFILE_SUCCESS = createAction('GET_MY_PROFILE_SUCCESS');
 export const GET_MY_PROFILE_FAILURE = createAction('GET_MY_PROFILE_FAILURE');
 export const CLEAR_ERROR = createAction('CLEAR_ERROR');
 export const CLEAR_MESSAGE = createAction('CLEAR_MESSAGE');
-export const LOGOUT = createAction('LOGOUT');
+export const LOGOUT_USER = createAction('LOGOUT_USER');
 
 // Reducer
 export const UserAuthentication = createReducer(initialState, (builder) => {
@@ -56,7 +56,7 @@ export const UserAuthentication = createReducer(initialState, (builder) => {
         .addCase(CLEAR_MESSAGE, (state) => {
             state.message = null;
         })
-        .addCase(LOGOUT, (state) => {
+        .addCase(LOGOUT_USER, (state) => {
             state.isLoading = false;
             state.Authenticated = false;
             state.user = null;

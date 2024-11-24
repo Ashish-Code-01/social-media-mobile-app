@@ -24,3 +24,13 @@ export const GetMyProfile = (email, password) => async (dispatch) => {
         dispatch({ type: "GET_MY_PROFILE_FAILUR", payload: error.response?.data?.message });
     }
 };
+export const Logout = () => async (dispatch) => {
+    try {
+        dispatch({ type: "LOGOUT_USER" });
+        await axios.get(`${BASE_URL}/logout`);
+        console.log("User logged out successfully");
+    } catch (error) {
+        console.log("LOGOUT error:", error);
+    }
+};
+

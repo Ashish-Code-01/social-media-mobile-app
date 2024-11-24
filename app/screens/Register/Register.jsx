@@ -10,18 +10,7 @@ const RegisterPage = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   const handleImagePick = () => {
-    launchImageLibrary(
-      { mediaType: 'photo', quality: 0.5 },
-      (response) => {
-        if (response.didCancel) {
-          console.log('User cancelled image picker');
-        } else if (response.errorCode) {
-          console.log('ImagePicker Error: ', response.errorMessage);
-        } else {
-          setImageUri(response.assets[0].uri);
-        }
-      }
-    );
+    navigation.navigate("CameraScreen")
   };
 
   const handleRegister = () => {

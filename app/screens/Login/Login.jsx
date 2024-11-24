@@ -30,9 +30,6 @@ const Login = ({ navigation }) => {
       Alert.alert('Error', error?.message || 'An unexpected error occurred.');
       dispatch({ type: 'CLEAR_ERROR' });
     }
-    if (Authenticated) {
-      navigation.navigate('HomeScreen');
-    }
   }, [error, Authenticated, navigation, dispatch]);
   return (
     <View style={styles.container}>
