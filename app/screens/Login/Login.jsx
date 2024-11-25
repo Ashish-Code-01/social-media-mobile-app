@@ -23,7 +23,6 @@ const Login = ({ navigation }) => {
       return;
     }
     dispatch(LoginUser(email, password));
-    console.log('Login attempt initiated.');
   };
   useEffect(() => {
     if (error) {

@@ -30,7 +30,7 @@ export const Logout = () => async (dispatch) => {
         await axios.get(`${BASE_URL}/logout`);
         console.log("User logged out successfully");
     } catch (error) {
-        console.log("LOGOUT error:", error);
+        alert(error)
     }
 };
 
