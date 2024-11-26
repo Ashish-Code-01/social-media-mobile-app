@@ -6,8 +6,10 @@ import { Logout } from '../../../reducer/actions/actions';
 const Home = () => {
   const dispatch = useDispatch();
 
-  const LogoutHandler = () => dispatch(Logout())
-
+  const LogoutHandler = () => {
+    console.log("logout")
+    dispatch(Logout());
+  }
 
 
   return (

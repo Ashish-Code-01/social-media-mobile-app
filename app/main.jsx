@@ -10,14 +10,14 @@ import ForgotPasswordScreen from './screens/ForgotPassword/ForgotPassword';
 import Footer from './components/Footer';
 import CameraScreen from './screens/Camera/Camera';
 import { useDispatch, useSelector } from 'react-redux';
-import { GET_MY_PROFILE_REQUEST } from "../reducer/reducer/reducer"
+import { LOGIN_REQUEST } from "../reducer/reducer/reducer"
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(GET_MY_PROFILE_REQUEST())
+        dispatch(LOGIN_REQUEST())
     }, [dispatch])
 
 
