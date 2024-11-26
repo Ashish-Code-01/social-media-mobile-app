@@ -22,7 +22,7 @@ const App = () => {
 
 
     const { Authenticated = false, isLoading = false, error = null } = useSelector(
-        (state) => state.auth || {}
+        (state) => state.auth 
     );
     return (
         <>
