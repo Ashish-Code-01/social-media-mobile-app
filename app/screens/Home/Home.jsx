@@ -1,28 +1,14 @@
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Logout } from '../../../reducer/actions/actions';
 
 const Home = () => {
   const dispatch = useDispatch();
 
-  const LogoutHandler = () => {
-    Alert.alert(
-      'Confirm Logout',
-      'Are you sure you want to logout?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Yes',
-          onPress: () => {
-            dispatch(Logout());
-            Alert.alert('Logout', 'You have been logged out successfully!');
-          },
-        },
-      ],
-      { cancelable: true }
-    );
-  };
+  const LogoutHandler = () => dispatch(Logout())
+
+
 
   return (
     <View style={styles.container}>
