@@ -27,7 +27,7 @@ const App = () => {
     console.log(Authenticated, isLoading, error)
 
     if (isLoading) {
-        return <Text>Loading...</Text>;
+        return <Text style={{ textAlign: "center", justifyContent: "center" }}>Loading...</Text>;
     }
 
     return (
