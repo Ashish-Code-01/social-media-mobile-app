@@ -1,6 +1,5 @@
 import { createReducer, createAction } from "@reduxjs/toolkit";
 
-// Initial State
 const initialState = {
     isLoading: false,
     Authenticated: false,
@@ -9,7 +8,6 @@ const initialState = {
     error: null,
 };
 
-// Actions
 export const LOGIN_REQUEST = createAction("LOGIN_REQUEST");
 export const LOGIN_SUCCESS = createAction("LOGIN_SUCCESS");
 export const LOGIN_FAILURE = createAction("LOGIN_FAILURE");
@@ -18,6 +16,10 @@ export const GET_MY_PROFILE_REQUEST = createAction("GET_MY_PROFILE_REQUEST");
 export const GET_MY_PROFILE_SUCCESS = createAction("GET_MY_PROFILE_SUCCESS");
 export const GET_MY_PROFILE_FAILURE = createAction("GET_MY_PROFILE_FAILURE");
 
+export const LOAD_USER_REQUEST = createAction("LOAD_USER_REQUEST");
+export const LOAD_USER_SUCCESS = createAction("LOAD_USER_SUCCESS");
+export const LOAD_USER_FAILURE = createAction("LOAD_USER_FAILURE");
+
 export const CLEAR_ERROR = createAction("CLEAR_ERROR");
 export const CLEAR_MESSAGE = createAction("CLEAR_MESSAGE");
 
@@ -25,10 +27,9 @@ export const LOGOUT_USER_REQUEST = createAction("LOGOUT_USER_REQUEST");
 export const LOGOUT_USER_SUCCESS = createAction("LOGOUT_USER_SUCCESS");
 export const LOGOUT_USER_FAILURE = createAction("LOGOUT_USER_FAILURE");
 
-// Reducer
+
 export const UserAuthentication = createReducer(initialState, (builder) => {
     builder
-        // Login Actions
         .addCase(LOGIN_REQUEST, (state) => {
             state.isLoading = true;
         })
@@ -43,8 +44,6 @@ export const UserAuthentication = createReducer(initialState, (builder) => {
             state.Authenticated = false;
             state.error = action.payload;
         })
-
-        // Profile Actions
         .addCase(GET_MY_PROFILE_REQUEST, (state) => {
             state.isLoading = true;
         })
@@ -58,8 +57,19 @@ export const UserAuthentication = createReducer(initialState, (builder) => {
             state.Authenticated = false;
             state.error = action.payload;
         })
-
-        // Logout Actions
+        .addCase(LOAD_USER_REQUEST, (state) => {
+            state.isLoading = true;
+        })
+        .addCase(LOAD_USER_SUCCESS, (state, action) => {
+            state.isLoading = false;
+            state.Authenticated = true;
+            state.user = action.payload.user;
+        })
+        .addCase(LOAD_USER_FAILURE, (state, action) => {
+            state.isLoading = false;
+            state.Authenticated = false;
+            state.error = action.payload;
+        })
         .addCase(LOGOUT_USER_REQUEST, (state) => {
             state.isLoading = true;
         })
@@ -73,8 +83,6 @@ export const UserAuthentication = createReducer(initialState, (builder) => {
             state.isLoading = false;
             state.error = action.payload;
         })
-
-        // Clear Error and Message
         .addCase(CLEAR_ERROR, (state) => {
             state.error = null;
         })

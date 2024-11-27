@@ -36,6 +36,19 @@ export const GetMyProfile = () => async (dispatch) => {
     }
 };
 
+export const LoadUser = () => async (dispatch) => {
+    try {
+        dispatch({ type: "LOAD_USER_REQUEST" });
+        const { data } = await axios.get(`${serverUrl}/me`);
+        dispatch({ type: "LOAD_USER_SUCCESS", payload: data });
+    } catch (error) {
+        dispatch({
+            type: "LOAD_USER_FAILURE",
+            payload: error.response?.data?.message || "Failed to load the user",
+        });
+    }
+};
+
 export const Logout = () => async (dispatch) => {
     try {
         dispatch({ type: "LOGOUT_USER_REQUEST" });
