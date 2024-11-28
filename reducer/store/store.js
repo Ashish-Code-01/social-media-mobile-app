@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { UserAuthentication } from "../reducer/reducer"
+import { UserAuthentication } from "../reducer/userReducer"
 
 export const store = configureStore({
     reducer: {
