@@ -1,8 +1,11 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
+import { CreatePost } from '../../../reducer/actions/actions';
+import { useDispatch } from 'react-redux';
 
-const CreatePost = () => {
+const CreatePostScreen = () => {
+  const dispatch = useDispatch();
   const [image, setImage] = useState(null);
   const [caption, setCaption] = useState("");
 
@@ -20,7 +23,7 @@ const CreatePost = () => {
   };
 
   const submitHandler = async () => {
-    console.log("Post created with:", { caption, image });
+    dispatch(CreatePost(caption, image));
   };
 
   return (
@@ -46,7 +49,7 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default CreatePostScreen;
 
 const styles = StyleSheet.create({
   container: {

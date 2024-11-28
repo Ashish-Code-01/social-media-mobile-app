@@ -10,9 +10,12 @@ import {
 } from 'react-native';
 import { Card } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
+import { RegisterUser } from '../../../reducer/actions/actions';
+import { useDispatch } from 'react-redux';
 
 const RegisterPage = ({ navigation, route }) => {
-  const [imageUri, setImageUri] = useState(null);
+  const dispatch = useDispatch();
+  const [avatar, setAvatar] = useState(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,33 +23,35 @@ const RegisterPage = ({ navigation, route }) => {
   const handleImagePick = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images, 
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
-        quality: 1,
+        quality: 0.4,
       });
 
       if (!result.canceled) {
-        setImageUri(result.assets[0].uri); 
+        setAvatar(result.assets[0].uri);
       }
     } catch (error) {
       Alert.alert('Error', 'An error occurred while selecting the image.');
     }
+    console.log("clicked");
+
   };
 
   const handleRegister = () => {
     const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    if (!name || !email || !password || !imageUri) {
+    if (!name || !email || !password || !avatar) {
       Alert.alert('Error', 'Please fill all fields and select an image.');
     } else if (!emailRegex.test(email)) {
       Alert.alert('Error', 'Please enter a valid email address.');
     } else {
-      Alert.alert('Success', 'Registration Successful');
+      dispatch(RegisterUser(name, email, password, avatar));
     }
   };
 
   useEffect(() => {
     if (route?.params?.image) {
-      setImageUri(route.params.image);
+      setAvatar(route.params.image);
     }
   }, [route]);
 
@@ -55,7 +60,7 @@ const RegisterPage = ({ navigation, route }) => {
       <Card style={styles.form}>
         <Text style={styles.text}>Register</Text>
         <View>
-          {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
+          {avatar && <Image source={{ uri: avatar }} style={styles.image} />}
         </View>
         <TouchableOpacity style={styles.imageButton} onPress={handleImagePick}>
           <Text style={styles.imageButtonText}>Pick an image</Text>
@@ -63,7 +68,7 @@ const RegisterPage = ({ navigation, route }) => {
         <TextInput
           style={styles.input}
           placeholder="Enter your name"
-          placeholderTextColor="black"
+          placeholderTextColor="gray"
           value={name}
           onChangeText={(text) => setName(text)}
         />
@@ -71,14 +76,14 @@ const RegisterPage = ({ navigation, route }) => {
           style={styles.input}
           placeholder="Enter your email"
           keyboardType="email-address"
-          placeholderTextColor="black"
+          placeholderTextColor="gray"
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
         <TextInput
           style={styles.input}
           placeholder="Enter your password"
-          placeholderTextColor="black"
+          placeholderTextColor="gray"
           secureTextEntry
           value={password}
           onChangeText={(text) => setPassword(text)}
