@@ -53,12 +53,23 @@ export const Logout = () => async (dispatch) => {
     try {
         dispatch({ type: "LOGOUT_USER_REQUEST" });
         const { data } = await axios.get(`${BASE_URL}/logout`);
-        console.log(data)
         dispatch({ type: "LOGOUT_USER_SUCCESS" });
     } catch (error) {
         dispatch({
             type: "LOGOUT_USER_FAILURE",
             payload: error.response?.data?.message || "Logout failed",
+        });
+    }
+};
+export const ForgotPasswordUser = () => async (dispatch) => {
+    try {
+        dispatch({ type: "FORGOT_PASSWORD_REQUEST" });
+        const { data } = await axios.post(`${BASE_URL}/forgot/password`);
+        dispatch({ type: "FORGOT_PASSWORD_SUCCESS", payload: data });
+    } catch (error) {
+        dispatch({
+            type: "FORGOT_PASSWORD_FAILURE",
+            payload: error.response?.data?.message || "Forgot password failed",
         });
     }
 };

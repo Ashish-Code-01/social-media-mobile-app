@@ -27,6 +27,10 @@ export const LOGOUT_USER_REQUEST = createAction("LOGOUT_USER_REQUEST");
 export const LOGOUT_USER_SUCCESS = createAction("LOGOUT_USER_SUCCESS");
 export const LOGOUT_USER_FAILURE = createAction("LOGOUT_USER_FAILURE");
 
+export const FORGOT_PASSWORD_REQUEST = createAction("FORGOT_PASSWORD_REQUEST");
+export const FORGOT_PASSWORD_SUCCESS = createAction("FORGOT_PASSWORD_SUCCESS");
+export const FORGOT_PASSWORD_FAILURE = createAction("FORGOT_PASSWORD_FAILURE");
+
 
 export const UserAuthentication = createReducer(initialState, (builder) => {
     builder
@@ -88,5 +92,16 @@ export const UserAuthentication = createReducer(initialState, (builder) => {
         })
         .addCase(CLEAR_MESSAGE, (state) => {
             state.message = null;
+        }).addCase(FORGOT_PASSWORD_REQUEST, (state) => {
+            state.isLoading = true;
+            state.error = null;
+        })
+        .addCase(FORGOT_PASSWORD_SUCCESS, (state, action) => {
+            state.isLoading = false;
+            state.message = action.payload?.message || "Password reset link sent successfully"; 
+        })
+        .addCase(FORGOT_PASSWORD_FAILURE, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload || "Failed to send password reset link"; 
         });
 });

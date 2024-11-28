@@ -1,11 +1,14 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { ForgotPasswordUser } from '../../../reducer/actions/actions';
 
 const ForgotPassword = () => {
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
 
     const handleForgotPassword = () => {
-        console.log('Email:', email);
+        dispatch(ForgotPasswordUser(email));
     };
 
     return (

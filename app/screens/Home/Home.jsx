@@ -7,7 +7,6 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const LogoutHandler = () => {
-    console.log("logout")
     dispatch(Logout());
   }
 

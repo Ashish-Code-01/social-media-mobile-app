@@ -3,6 +3,6 @@ import { UserAuthentication } from "../reducer/userReducer"
 
 export const store = configureStore({
     reducer: {
-        auth: UserAuthentication
+        auth: UserAuthentication,
     }
 })

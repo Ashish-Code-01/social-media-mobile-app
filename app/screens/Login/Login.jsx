@@ -7,7 +7,7 @@ import {
   Alert,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'; 
 import { LoginUser } from '../../../reducer/actions/actions';
 
 const Login = ({ navigation }) => {
