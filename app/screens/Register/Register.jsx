@@ -34,8 +34,6 @@ const RegisterPage = ({ navigation, route }) => {
     } catch (error) {
       Alert.alert('Error', 'An error occurred while selecting the image.');
     }
-    console.log("clicked");
-
   };
 
   const handleRegister = () => {

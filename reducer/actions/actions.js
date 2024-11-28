@@ -35,7 +35,6 @@ export const RegisterUser = (name, email, password, avatar) => async (dispatch) 
                 },
             }
         );
-        console.log("data");
         dispatch({ type: "REGISTER_USER_SUCCESS", payload: data });
     } catch (error) {
         dispatch({
@@ -102,7 +101,6 @@ export const CreatePost = (caption, image) => async (dispatch) => {
             caption,
             image,
         });
-        console.log("post was created");
         dispatch({ type: "CREATE_POST_SUCCESS", payload: data });
     } catch (error) {
         dispatch({
