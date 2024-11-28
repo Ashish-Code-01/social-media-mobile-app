@@ -3,7 +3,6 @@ import { Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useDispatch, useSelector } from 'react-redux';
 import { LoadUser } from '../reducer/actions/actions';
-
 import HomeScreen from './screens/Home/Home';
 import LoginScreen from './screens/Login/Login';
 import RegisterScreen from './screens/Register/Register';
@@ -13,6 +12,7 @@ import SearchScreen from './screens/Search/Search';
 import ForgotPasswordScreen from './screens/ForgotPassword/ForgotPassword';
 import Footer from './components/Footer';
 import CameraScreen from './screens/Camera/Camera';
+import Loader from './components/Loader';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +26,7 @@ const App = () => {
     const { Authenticated, isLoading, error } = useSelector((state) => state.auth);
 
     if (isLoading) {
-        return <Text style={{ textAlign: "center", justifyContent: "center" }}>Loading...</Text>;
+        return <Loader />;
     }
 
     return (
