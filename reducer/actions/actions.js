@@ -73,3 +73,15 @@ export const ForgotPasswordUser = () => async (dispatch) => {
         });
     }
 };
+export const CreatePost = () => async (dispatch) => {
+    try {
+        dispatch({ type: "CREATE_POST_REQUEST" });
+        const { data } = await axios.post(`${BASE_URL}/post/upload`);
+        dispatch({ type: "CREATE_POST_SUCCESS", payload: data });
+    } catch (error) {
+        dispatch({
+            type: "CREATE_POST_FAILURE",
+            payload: error.response?.data?.message || "Create post failed",
+        });
+    }
+};

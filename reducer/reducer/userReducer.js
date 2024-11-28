@@ -31,6 +31,10 @@ export const FORGOT_PASSWORD_REQUEST = createAction("FORGOT_PASSWORD_REQUEST");
 export const FORGOT_PASSWORD_SUCCESS = createAction("FORGOT_PASSWORD_SUCCESS");
 export const FORGOT_PASSWORD_FAILURE = createAction("FORGOT_PASSWORD_FAILURE");
 
+export const CREATE_POST_REQUEST = createAction("CREATE_POST_REQUEST");
+export const CREATE_POST_SUCCESS = createAction("CREATE_POST_SUCCESS");
+export const CREATE_POST_FAILURE = createAction("CREATE_POST_FAILURE");
+
 
 export const UserAuthentication = createReducer(initialState, (builder) => {
     builder
@@ -103,5 +107,18 @@ export const UserAuthentication = createReducer(initialState, (builder) => {
         .addCase(FORGOT_PASSWORD_FAILURE, (state, action) => {
             state.isLoading = false;
             state.error = action.payload || "Failed to send password reset link"; 
+        })
+        .addCase(CREATE_POST_REQUEST, (state) => {
+            state.isLoading = true;
+            state.error = null;
+        })
+        .addCase(CREATE_POST_SUCCESS, (state, action) => {
+            state.isLoading = false;
+            state.message = action.payload?.message || "Post created successfully";
+        })
+        .addCase(CREATE_POST_FAILURE, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload || "Failed to create post";
         });
+
 });
