@@ -1,25 +1,54 @@
-import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, TextInput, Alert, TouchableOpacity } from 'react-native';
-import { launchImageLibrary } from 'react-native-image-picker';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TextInput,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 import { Card } from 'react-native-paper';
+import * as ImagePicker from 'expo-image-picker';
 
-const RegisterPage = ({ navigation }) => {
+const RegisterPage = ({ navigation, route }) => {
   const [imageUri, setImageUri] = useState(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleImagePick = () => {
-    navigation.navigate("CameraScreen")
+  const handleImagePick = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images, 
+        allowsEditing: true,
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        setImageUri(result.assets[0].uri); 
+      }
+    } catch (error) {
+      Alert.alert('Error', 'An error occurred while selecting the image.');
+    }
   };
 
   const handleRegister = () => {
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     if (!name || !email || !password || !imageUri) {
       Alert.alert('Error', 'Please fill all fields and select an image.');
+    } else if (!emailRegex.test(email)) {
+      Alert.alert('Error', 'Please enter a valid email address.');
     } else {
       Alert.alert('Success', 'Registration Successful');
     }
   };
+
+  useEffect(() => {
+    if (route?.params?.image) {
+      setImageUri(route.params.image);
+    }
+  }, [route]);
 
   return (
     <View style={styles.container}>
@@ -97,14 +126,13 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     textAlign: 'center',
-    marginTop: ""
   },
   image: {
     width: 100,
     height: 100,
     borderRadius: 100,
     marginTop: 10,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginBottom: 10,
   },
   input: {
