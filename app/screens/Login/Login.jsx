@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'; 
-import { LoginUser } from '../../../reducer/actions/actions';
+import { LoginUser } from '../../../reducer/actions/userActions';
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();

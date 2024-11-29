@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Logout } from '../../../reducer/actions/actions';
+import { Logout } from '../../../reducer/actions/userActions';
 
 const Home = () => {
   const dispatch = useDispatch();

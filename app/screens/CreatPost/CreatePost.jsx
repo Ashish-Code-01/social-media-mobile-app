@@ -1,13 +1,16 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
-import { CreatePost } from '../../../reducer/actions/actions';
+import { CreatePost } from '../../../reducer/actions/postAction';
 import { useDispatch } from 'react-redux';
 
 const CreatePostScreen = () => {
   const dispatch = useDispatch();
   const [image, setImage] = useState(null);
   const [caption, setCaption] = useState("");
+
+  const { owner } = useSelector((state) => state.auth.user._id);
+
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -23,7 +26,7 @@ const CreatePostScreen = () => {
   };
 
   const submitHandler = async () => {
-    dispatch(CreatePost(caption, image));
+    dispatch(CreatePost(caption, image, owner));
   };
 
   return (

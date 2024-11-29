@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Card } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
-import { RegisterUser } from '../../../reducer/actions/actions';
+import { RegisterUser } from '../../../reducer/actions/userActions';
 import { useDispatch } from 'react-redux';
 
 const RegisterPage = ({ navigation, route }) => {

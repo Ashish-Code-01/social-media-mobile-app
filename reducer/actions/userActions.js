@@ -73,7 +73,7 @@ export const LoadUser = () => async (dispatch) => {
 export const Logout = () => async (dispatch) => {
     try {
         dispatch({ type: "LOGOUT_USER_REQUEST" });
-        const { data } = await axios.get(`${BASE_URL}/logout`);
+        await axios.get(`${BASE_URL}/logout`);
         dispatch({ type: "LOGOUT_USER_SUCCESS" });
     } catch (error) {
         dispatch({
@@ -82,30 +82,22 @@ export const Logout = () => async (dispatch) => {
         });
     }
 };
-export const ForgotPasswordUser = () => async (dispatch) => {
+export const ForgotPasswordUser = (email) => async (dispatch) => {
     try {
         dispatch({ type: "FORGOT_PASSWORD_REQUEST" });
-        const { data } = await axios.post(`${BASE_URL}/forgot/password`);
+        const { data } = await axios.post(`${BASE_URL}/forgot/password`,
+            { email },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
         dispatch({ type: "FORGOT_PASSWORD_SUCCESS", payload: data });
     } catch (error) {
         dispatch({
             type: "FORGOT_PASSWORD_FAILURE",
             payload: error.response?.data?.message || "Forgot password failed",
-        });
-    }
-};
-export const CreatePost = (caption, image) => async (dispatch) => {
-    try {
-        dispatch({ type: "CREATE_POST_REQUEST" });
-        const { data } = await axios.post(`${BASE_URL}/post/upload`, {
-            caption,
-            image,
-        });
-        dispatch({ type: "CREATE_POST_SUCCESS", payload: data });
-    } catch (error) {
-        dispatch({
-            type: "CREATE_POST_FAILURE",
-            payload: error.response?.data?.message || "Create post failed",
         });
     }
 };

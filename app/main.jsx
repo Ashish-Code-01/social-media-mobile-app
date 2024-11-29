@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useDispatch, useSelector } from 'react-redux';
-import { LoadUser } from '../reducer/actions/actions';
+import { LoadUser } from '../reducer/actions/userActions';
 import HomeScreen from './screens/Home/Home';
 import LoginScreen from './screens/Login/Login';
 import RegisterScreen from './screens/Register/Register';
@@ -23,7 +23,7 @@ const App = () => {
         dispatch(LoadUser());
     }, [dispatch]);
 
-    const { Authenticated, isLoading, error } = useSelector((state) => state.auth);
+    const { Authenticated, isLoading } = useSelector((state) => state.auth);
 
     if (isLoading) {
         return <Loader />;
