@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { CreatePost } from '../../../reducer/actions/postAction';
@@ -10,25 +10,38 @@ const CreatePostScreen = () => {
   const [caption, setCaption] = useState("");
 
   const { user } = useSelector((state) => state.auth);
-  const owner = user._id;
-
-
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
 
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      if (!result.cancelled && result.assets && result.assets[0]?.uri) {
+        setImage(result.assets[0].uri);
+      }
+    } catch (error) {
+      Alert.alert("Error", "Unable to pick an image. Please try again.");
     }
   };
 
   const submitHandler = async () => {
-    dispatch(CreatePost(caption, image, owner));
+    if (!caption.trim() || !image) {
+      Alert.alert("Error", "Please provide a caption and select an image.");
+      return;
+    }
+
+    try {
+      await dispatch(CreatePost(caption, image));
+      Alert.alert("Success", "Post created successfully!");
+      setCaption("");
+      setImage(null);
+    } catch (error) {
+      Alert.alert("Error", "Unable to create post. Please try again.");
+    }
   };
 
   return (
@@ -61,8 +74,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%',
-    width: '100%',
     backgroundColor: '#262626',
   },
   form: {
