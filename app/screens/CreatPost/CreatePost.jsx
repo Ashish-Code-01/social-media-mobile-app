@@ -2,14 +2,16 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'reac
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { CreatePost } from '../../../reducer/actions/postAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const CreatePostScreen = () => {
   const dispatch = useDispatch();
   const [image, setImage] = useState(null);
   const [caption, setCaption] = useState("");
 
-  const { owner } = useSelector((state) => state.auth.user._id);
+  const { user } = useSelector((state) => state.auth);
+  const owner = user._id;
+
 
 
   const pickImage = async () => {

@@ -16,5 +16,7 @@ export const CreatePost = (caption, image, owner) => async (dispatch) => {
             type: "CREATE_POST_FAILURE",
             payload: error.response?.data?.message || "Create post failed",
         });
+        console.log("error ");
+
     }
 };

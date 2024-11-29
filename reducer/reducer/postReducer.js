@@ -26,10 +26,4 @@ export const PostReducer = createReducer(initialState, (builder) => {
             state.isLoading = false;
             state.error = action.payload || "Failed to create post";
         })
-        .addCase(CLEAR_ERROR, (state) => {
-            state.error = null;
-        })
-        .addCase(CLEAR_MESSAGE, (state) => {
-            state.message = null;
-        });
 });
