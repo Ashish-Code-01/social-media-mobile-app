@@ -36,7 +36,6 @@ const CreatePostScreen = () => {
 
     try {
       await dispatch(CreatePost(caption, image));
-      Alert.alert("Success", "Post created successfully!");
       setCaption("");
       setImage(null);
     } catch (error) {
