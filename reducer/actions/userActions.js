@@ -82,6 +82,7 @@ export const Logout = () => async (dispatch) => {
         });
     }
 };
+
 export const ForgotPasswordUser = (email) => async (dispatch) => {
     try {
         dispatch({ type: "FORGOT_PASSWORD_REQUEST" });
@@ -98,6 +99,19 @@ export const ForgotPasswordUser = (email) => async (dispatch) => {
         dispatch({
             type: "FORGOT_PASSWORD_FAILURE",
             payload: error.response?.data?.message || "Forgot password failed",
+        });
+    }
+};
+
+export const getAllUser = (name) => async (dispatch) => {
+    try {
+        dispatch({ type: "GET_ALL_USER_REQUEST" });
+        const { data } = await axios.get(`/api/v1/users?name=${name}`);
+        dispatch({ type: "GET_ALL_USER_SUCCESS", payload: data });
+    } catch (error) {
+        dispatch({
+            type: "GET_ALL_USER_FAILURE",
+            payload: error.response?.data?.message || "User not found",
         });
     }
 };

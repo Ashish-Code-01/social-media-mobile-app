@@ -23,7 +23,7 @@ const App = () => {
         dispatch(LoadUser());
     }, [dispatch]);
 
-    const { Authenticated, isLoading } = useSelector((state) => state.auth);
+    const { isAuthenticated, isLoading } = useSelector((state) => state.auth);
 
     if (isLoading) {
         return <Loader />;
@@ -31,7 +31,7 @@ const App = () => {
 
     return (
         <>
-            <Stack.Navigator initialRouteName={Authenticated ? "HomeScreen" : "LoginScreen"}>
+            <Stack.Navigator initialRouteName={isAuthenticated ? "HomeScreen" : "LoginScreen"}>
                 <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
@@ -41,7 +41,7 @@ const App = () => {
                 <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="CameraScreen" component={CameraScreen} options={{ headerShown: false }} />
             </Stack.Navigator>
-            {Authenticated ? <Footer /> : ""}
+            {isAuthenticated ? <Footer /> : ""}
         </>
     );
 };

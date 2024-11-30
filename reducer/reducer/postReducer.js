@@ -2,7 +2,7 @@ import { createReducer, createAction } from "@reduxjs/toolkit";
 
 const initialState = {
     isLoading: false,
-    Authenticated: false,
+    isAuthenticated: false,
     message: null,
     error: null,
 };

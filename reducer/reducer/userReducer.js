@@ -2,8 +2,9 @@ import { createReducer, createAction } from "@reduxjs/toolkit";
 
 const initialState = {
     isLoading: false,
-    Authenticated: false,
+    isAuthenticated: false,
     user: null,
+    users: null,
     message: null,
     error: null,
 };
@@ -40,83 +41,78 @@ export const REGISTER_USER_REQUEST = createAction("REGISTER_USER_REQUEST");
 export const REGISTER_USER_SUCCESS = createAction("REGISTER_USER_SUCCESS");
 export const REGISTER_USER_FAILURE = createAction("REGISTER_USER_FAILURE");
 
+export const GET_ALL_USER_REQUEST = createAction("GET_ALL_USER_REQUEST");
+export const GET_ALL_USER_SUCCESS = createAction("GET_ALL_USER_SUCCESS");
+export const GET_ALL_USER_FAILURE = createAction("GET_ALL_USER_FAILURE");
+
 // Reducer
 export const UserAuthentication = createReducer(initialState, (builder) => {
     builder
-        // Login Actions
         .addCase(LOGIN_REQUEST, (state) => {
             state.isLoading = true;
             state.error = null;
         })
         .addCase(LOGIN_SUCCESS, (state, action) => {
             state.isLoading = false;
-            state.Authenticated = true;
+            state.isAuthenticated = true;
             state.user = action.payload.user;
             state.message = action.payload.message || "Login successful";
         })
         .addCase(LOGIN_FAILURE, (state, action) => {
             state.isLoading = false;
-            state.Authenticated = false;
+            state.isAuthenticated = false;
             state.error = action.payload || "Login failed";
         })
-
-        // Register Actions
         .addCase(REGISTER_USER_REQUEST, (state) => {
             state.isLoading = true;
             state.error = null;
         })
         .addCase(REGISTER_USER_SUCCESS, (state, action) => {
             state.isLoading = false;
-            state.Authenticated = true;
+            state.isAuthenticated = true;
             state.user = action.payload.user;
             state.message = action.payload.message || "Registration successful";
         })
         .addCase(REGISTER_USER_FAILURE, (state, action) => {
             state.isLoading = false;
-            state.Authenticated = false;
+            state.isAuthenticated = false;
             state.error = action.payload || "Registration failed";
         })
-
-        // Profile Actions
         .addCase(GET_MY_PROFILE_REQUEST, (state) => {
             state.isLoading = true;
             state.error = null;
         })
         .addCase(GET_MY_PROFILE_SUCCESS, (state, action) => {
             state.isLoading = false;
-            state.Authenticated = true;
+            state.isAuthenticated = true;
             state.user = action.payload.user;
         })
         .addCase(GET_MY_PROFILE_FAILURE, (state, action) => {
             state.isLoading = false;
-            state.Authenticated = false;
+            state.isAuthenticated = false;
             state.error = action.payload || "Failed to load profile";
         })
-
-        // Load User Actions
         .addCase(LOAD_USER_REQUEST, (state) => {
             state.isLoading = true;
             state.error = null;
         })
         .addCase(LOAD_USER_SUCCESS, (state, action) => {
             state.isLoading = false;
-            state.Authenticated = true;
+            state.isAuthenticated = true;
             state.user = action.payload.user;
         })
         .addCase(LOAD_USER_FAILURE, (state, action) => {
             state.isLoading = false;
-            state.Authenticated = false;
+            state.isAuthenticated = false;
             state.error = action.payload || "Failed to load user";
         })
-
-        // Logout Actions
         .addCase(LOGOUT_USER_REQUEST, (state) => {
             state.isLoading = true;
             state.error = null;
         })
         .addCase(LOGOUT_USER_SUCCESS, (state) => {
             state.isLoading = false;
-            state.Authenticated = false;
+            state.isAuthenticated = false;
             state.user = null;
             state.message = "Logged out successfully";
         })
@@ -124,8 +120,6 @@ export const UserAuthentication = createReducer(initialState, (builder) => {
             state.isLoading = false;
             state.error = action.payload || "Logout failed";
         })
-
-        // Forgot Password Actions
         .addCase(FORGOT_PASSWORD_REQUEST, (state) => {
             state.isLoading = true;
             state.error = null;
@@ -138,8 +132,6 @@ export const UserAuthentication = createReducer(initialState, (builder) => {
             state.isLoading = false;
             state.error = action.payload || "Failed to send reset link";
         })
-
-        // Create Post Actions
         .addCase(CREATE_POST_REQUEST, (state) => {
             state.isLoading = true;
             state.error = null;
@@ -152,10 +144,20 @@ export const UserAuthentication = createReducer(initialState, (builder) => {
             state.isLoading = false;
             state.error = action.payload || "Failed to create post";
         })
-
+        .addCase(GET_ALL_USER_REQUEST, (state) => {
+            state.isLoading = true;
+        })
+        .addCase(GET_ALL_USER_SUCCESS, (state, action) => {
+            state.isLoading = false;
+            state.users = action.payload;
+        })
+        .addCase(GET_ALL_USER_FAILURE, (state, action) => {
+            state.loading = false;
+            state.error = action.payload || "User not found";
+        })
         // Clear Error and Message
         .addCase(CLEAR_ERROR, (state) => {
-            state.error = null;
+            state.error = null; 
         })
         .addCase(CLEAR_MESSAGE, (state) => {
             state.message = null;

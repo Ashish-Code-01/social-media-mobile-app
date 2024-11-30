@@ -14,7 +14,7 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { Authenticated = false, isLoading = false, error = null } = useSelector(
+  const { isAuthenticated = false, isLoading = false, error = null } = useSelector(
     (state) => state.auth || {}
   );
   const handleLogin = () => {
@@ -29,7 +29,7 @@ const Login = ({ navigation }) => {
       Alert.alert('Error', error?.message || 'An unexpected error occurred.');
       dispatch({ type: 'CLEAR_ERROR' });
     }
-  }, [error, Authenticated, navigation, dispatch]);
+  }, [error, isAuthenticated, navigation, dispatch]);
   return (
     <View style={styles.container}>
       <View style={styles.form}>
