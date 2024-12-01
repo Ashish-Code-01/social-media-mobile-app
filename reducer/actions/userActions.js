@@ -12,8 +12,11 @@ export const LoginUser = (email, password) => async (dispatch) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                withCredentials: true,
             }
         );
+        console.log(data);
+
         dispatch({ type: "LOGIN_SUCCESS", payload: data });
     } catch (error) {
         dispatch({
