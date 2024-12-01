@@ -12,11 +12,8 @@ export const LoginUser = (email, password) => async (dispatch) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                withCredentials: true,
             }
         );
-        console.log(data);
-
         dispatch({ type: "LOGIN_SUCCESS", payload: data });
     } catch (error) {
         dispatch({
@@ -25,6 +22,7 @@ export const LoginUser = (email, password) => async (dispatch) => {
         });
     }
 };
+
 
 export const RegisterUser = (name, email, password, avatar) => async (dispatch) => {
     try {
@@ -109,7 +107,7 @@ export const ForgotPasswordUser = (email) => async (dispatch) => {
 export const getAllUser = (name) => async (dispatch) => {
     try {
         dispatch({ type: "GET_ALL_USER_REQUEST" });
-        const { data } = await axios.get(`/api/v1/users?name=${name}`);
+        const { data } = await axios.get(`${BASE_URL}/users?name=${name}`);
         dispatch({ type: "GET_ALL_USER_SUCCESS", payload: data });
     } catch (error) {
         dispatch({

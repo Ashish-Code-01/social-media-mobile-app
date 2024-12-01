@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { getAllUser } from "../../../reducer/actions/userActions"
 import { useDispatch } from 'react-redux'
@@ -28,7 +28,7 @@ const Search = () => {
         <TouchableOpacity
           style={styles.button}
           onPress={handelSearchUser}
-          disabled={!email}
+          disabled={!name}
         >
           <Text style={styles.buttonText}>Search</Text>
         </TouchableOpacity>

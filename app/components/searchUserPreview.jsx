@@ -9,3 +9,5 @@ const searchUserPreview = ({ userId, name, avatar }) => {
         </View>
     )
 }
+
+export default searchUserPreview;
